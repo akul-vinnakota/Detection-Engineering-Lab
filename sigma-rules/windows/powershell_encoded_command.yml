@@ -1,0 +1,30 @@
+title: PowerShell Encoded Command Execution
+id: c3c17c7c-e34c-4ed2-89cb-70bcd7517705
+status: test
+description: Detects PowerShell execution using encoded command arguments that may conceal malicious activity.
+author: Akul Vinnakota
+date: 2026-07-16
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - ' -enc '
+      - ' -EncodedCommand '
+      - ' -e '
+  condition: selection
+
+falsepositives:
+  - Legitimate administrative scripts using encoded PowerShell commands
+
+level: medium
+
+tags:
+  - attack.execution
+  - attack.t1059.001
