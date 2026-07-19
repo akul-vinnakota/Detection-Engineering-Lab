@@ -1,0 +1,2 @@
+{"EventID": 1, "UtcTime": "2026-07-18T19:00:00Z", "Computer": "LAB-WIN10", "User": "LAB-WIN10\\Akul", "Image": "C:\\Windows\\System32\\notepad.exe", "CommandLine": "notepad.exe notes.txt", "ParentImage": "C:\\Windows\\explorer.exe"}
+{"EventID": 1, "UtcTime": "2026-07-18T19:05:00Z", "Computer": "LAB-WIN10", "User": "LAB-WIN10\\Akul", "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe -EncodedCommand VwByAGkAdABlAC0ASABvAHMAdAAgACcAVABlAHMAdAAnAA==", "ParentImage": "C:\\Windows\\System32\\cmd.exe"}
