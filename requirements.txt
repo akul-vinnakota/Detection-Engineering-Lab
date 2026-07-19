@@ -1,1 +1,2 @@
+pytest==9.1.1
 sigma-cli==3.1.0
