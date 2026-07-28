@@ -1,0 +1,29 @@
+title: Possible SSH Brute Force Activity
+id: 7c4f8f6f-6a8a-4dc7-a8b4-1d7b6fd8746f
+status: test
+description: Detects repeated failed SSH login attempts from the same source IP address.
+author: Akul Vinnakota
+date: 2026-07-27
+
+logsource:
+  product: linux
+  service: sshd
+
+detection:
+  selection:
+    message|contains:
+      - 'Failed password'
+      - 'authentication failure'
+  condition: selection
+
+falsepositives:
+  - Users repeatedly entering an incorrect password
+  - Approved vulnerability scanning
+  - Administrative testing
+
+level: medium
+
+tags:
+  - attack.credential-access
+  - attack.t1110
+  - attack.t1110.001
