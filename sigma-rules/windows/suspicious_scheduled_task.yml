@@ -1,0 +1,41 @@
+title: Suspicious Windows Scheduled Task Creation
+id: 873c4fb7-cc45-49a2-a31b-58bf4f21b8d9
+status: test
+description: Detects scheduled task creation using command-line tools with potentially suspicious execution paths or interpreters.
+author: Akul Vinnakota
+date: 2026-07-28
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  task_creation:
+    Image|endswith:
+      - '\schtasks.exe'
+    CommandLine|contains:
+      - '/create'
+      - '-create'
+
+  suspicious_command:
+    CommandLine|contains:
+      - 'powershell'
+      - 'cmd.exe'
+      - '\AppData\'
+      - '\Temp\'
+      - 'http://'
+      - 'https://'
+
+  condition: task_creation and suspicious_command
+
+falsepositives:
+  - Legitimate administrative task creation
+  - Software installers and enterprise management tools
+  - Approved system maintenance scripts
+
+level: high
+
+tags:
+  - attack.persistence
+  - attack.privilege-escalation
+  - attack.t1053.005
