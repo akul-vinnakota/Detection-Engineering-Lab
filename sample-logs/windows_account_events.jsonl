@@ -1,0 +1,4 @@
+{"EventID": 4720, "UtcTime": "2026-07-29T19:00:00Z", "Computer": "LAB-WIN10", "SubjectUserName": "Administrator", "TargetUserName": "backupadmin", "TargetSid": "S-1-5-21-1000-1000-1000-1105"}
+{"EventID": 4732, "UtcTime": "2026-07-29T19:02:00Z", "Computer": "LAB-WIN10", "SubjectUserName": "Administrator", "TargetUserName": "Administrators", "MemberName": "backupadmin", "MemberSid": "S-1-5-21-1000-1000-1000-1105"}
+{"EventID": 4720, "UtcTime": "2026-07-29T19:10:00Z", "Computer": "LAB-WIN10", "SubjectUserName": "Administrator", "TargetUserName": "testuser", "TargetSid": "S-1-5-21-1000-1000-1000-1106"}
+{"EventID": 4624, "UtcTime": "2026-07-29T19:15:00Z", "Computer": "LAB-WIN10", "TargetUserName": "Akul", "LogonType": 2}

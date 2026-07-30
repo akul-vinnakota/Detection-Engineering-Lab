@@ -1,0 +1,25 @@
+title: Windows Local User Account Created
+id: 8c94f0de-3792-4d38-a798-8cab45c32109
+status: test
+description: Detects the creation of a Windows user account using Security Event ID 4720.
+author: Akul Vinnakota
+date: 2026-07-29
+
+logsource:
+  product: windows
+  service: security
+
+detection:
+  selection:
+    EventID: 4720
+  condition: selection
+
+falsepositives:
+  - Approved employee or service account provisioning
+  - Authorized administrative activity
+
+level: medium
+
+tags:
+  - attack.persistence
+  - attack.t1136.001

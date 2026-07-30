@@ -1,0 +1,28 @@
+title: Account Added to Local Administrators Group
+id: c128f92f-ecec-49b4-b833-b170bd518e76
+status: test
+description: Detects an account being added to the Windows local Administrators group using Security Event ID 4732.
+author: Akul Vinnakota
+date: 2026-07-29
+
+logsource:
+  product: windows
+  service: security
+
+detection:
+  selection:
+    EventID: 4732
+    TargetUserName: 'Administrators'
+  condition: selection
+
+falsepositives:
+  - Approved administrator provisioning
+  - Authorized endpoint-management activity
+  - Legitimate software installation
+
+level: high
+
+tags:
+  - attack.persistence
+  - attack.privilege-escalation
+  - attack.t1098.007
