@@ -1,0 +1,38 @@
+title: Suspicious Process Access to LSASS
+id: 9ccf3df6-091e-41bf-9450-b70d829801fc
+status: test
+description: Detects processes requesting suspicious access rights to LSASS that may indicate credential dumping.
+author: Akul Vinnakota
+date: 2026-07-30
+
+logsource:
+  category: process_access
+  product: windows
+
+detection:
+  target:
+    TargetImage|endswith:
+      - '\lsass.exe'
+
+  suspicious_access:
+    GrantedAccess:
+      - '0x1F0FFF'
+      - '0x1FFFFF'
+      - '0x1010'
+      - '0x1410'
+      - '0x1438'
+      - '0x143A'
+
+  condition: target and suspicious_access
+
+falsepositives:
+  - Antivirus and endpoint detection products
+  - Approved diagnostic or debugging tools
+  - Credential-management software
+  - Authorized security testing
+
+level: high
+
+tags:
+  - attack.credential-access
+  - attack.t1003.001

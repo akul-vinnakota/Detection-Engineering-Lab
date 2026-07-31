@@ -1,0 +1,3 @@
+{"EventID": 10, "UtcTime": "2026-07-30T22:00:00Z", "Computer": "LAB-WIN10", "SourceImage": "C:\\Windows\\System32\\svchost.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1000", "SourceUser": "NT AUTHORITY\\SYSTEM"}
+{"EventID": 10, "UtcTime": "2026-07-30T22:05:00Z", "Computer": "LAB-WIN10", "SourceImage": "C:\\Users\\Akul\\Downloads\\diagnostic.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1010", "SourceUser": "LAB-WIN10\\Akul"}
+{"EventID": 10, "UtcTime": "2026-07-30T22:10:00Z", "Computer": "LAB-WIN10", "SourceImage": "C:\\Windows\\System32\\taskmgr.exe", "TargetImage": "C:\\Windows\\System32\\notepad.exe", "GrantedAccess": "0x1010", "SourceUser": "LAB-WIN10\\Akul"}
