@@ -1,0 +1,41 @@
+title: Microsoft Defender Exclusion Added Through PowerShell
+id: 0cd97066-75d5-49e0-8b20-9ad3158ae7af
+status: test
+description: Detects PowerShell commands that add Microsoft Defender exclusions for paths, processes, file extensions, or IP addresses.
+author: Akul Vinnakota
+date: 2026-07-30
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  powershell:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+
+  defender_command:
+    CommandLine|contains:
+      - 'Add-MpPreference'
+      - 'Set-MpPreference'
+
+  exclusion_argument:
+    CommandLine|contains:
+      - '-ExclusionPath'
+      - '-ExclusionProcess'
+      - '-ExclusionExtension'
+      - '-ExclusionIpAddress'
+
+  condition: powershell and defender_command and exclusion_argument
+
+falsepositives:
+  - Authorized security administration
+  - Approved software deployment
+  - Enterprise endpoint-management activity
+
+level: high
+
+tags:
+  - attack.stealth
+  - attack.t1685
