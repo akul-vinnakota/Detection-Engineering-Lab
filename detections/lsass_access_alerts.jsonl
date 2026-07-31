@@ -1,0 +1,1 @@
+{"rule": "Suspicious Process Access to LSASS", "severity": "high", "mitre_attack": "T1003.001", "event": {"EventID": 10, "UtcTime": "2026-07-30T22:05:00Z", "Computer": "LAB-WIN10", "SourceImage": "C:\\Users\\Akul\\Downloads\\diagnostic.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1010", "SourceUser": "LAB-WIN10\\Akul"}}
