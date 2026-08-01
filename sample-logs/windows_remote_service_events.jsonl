@@ -1,0 +1,3 @@
+{"EventID": 7045, "UtcTime": "2026-07-31T21:00:00Z", "Computer": "LAB-SERVER01", "ServiceName": "BackupAgent", "ImagePath": "C:\\Program Files\\BackupAgent\\backup.exe", "ServiceType": "user mode service", "AccountName": "LocalSystem"}
+{"EventID": 7045, "UtcTime": "2026-07-31T21:05:00Z", "Computer": "LAB-SERVER01", "ServiceName": "PSEXESVC", "ImagePath": "C:\\Windows\\PSEXESVC.exe", "ServiceType": "user mode service", "AccountName": "LocalSystem", "SourceComputer": "LAB-WORKSTATION01", "SourceUser": "LAB\\admin"}
+{"EventID": 7036, "UtcTime": "2026-07-31T21:10:00Z", "Computer": "LAB-SERVER01", "ServiceName": "Windows Update", "State": "running"}

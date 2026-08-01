@@ -1,0 +1,41 @@
+title: Suspicious Remote Service Execution
+id: 5f296bd6-8f72-46ca-a8dc-fdb9327cc5d0
+status: test
+description: Detects suspicious Windows service creation associated with PsExec-style remote execution.
+author: Akul Vinnakota
+date: 2026-07-31
+
+logsource:
+  product: windows
+  service: system
+
+detection:
+  service_created:
+    EventID: 7045
+
+  psexec_service:
+    ServiceName|contains:
+      - 'PSEXESVC'
+      - 'PAExec'
+
+  suspicious_path:
+    ImagePath|contains:
+      - '\ADMIN$\'
+      - '\PSEXESVC.exe'
+      - '\PAExec.exe'
+
+  condition: service_created and (psexec_service or suspicious_path)
+
+falsepositives:
+  - Authorized remote administration
+  - Approved systems-management software
+  - Legitimate help-desk activity
+  - Authorized penetration testing
+
+level: high
+
+tags:
+  - attack.execution
+  - attack.lateral-movement
+  - attack.t1021.002
+  - attack.t1569.002
