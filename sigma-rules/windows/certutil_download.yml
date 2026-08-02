@@ -1,0 +1,39 @@
+title: Certutil Used to Download File
+id: 6b8fe7d2-2db9-4d7d-bdf7-fcf536ee8d41
+status: test
+description: Detects certutil.exe being used with URL-related arguments that may indicate file download activity.
+author: Akul Vinnakota
+date: 2026-08-02
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  certutil:
+    Image|endswith:
+      - '\certutil.exe'
+
+  url_argument:
+    CommandLine|contains:
+      - 'http://'
+      - 'https://'
+
+  download_argument:
+    CommandLine|contains:
+      - '-urlcache'
+      - '-split'
+      - '-f'
+
+  condition: certutil and url_argument and download_argument
+
+falsepositives:
+  - Authorized certificate administration
+  - Approved troubleshooting activity
+  - Legitimate administrative downloads
+
+level: high
+
+tags:
+  - attack.command-and-control
+  - attack.t1105
