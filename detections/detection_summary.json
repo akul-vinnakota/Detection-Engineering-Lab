@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Encoded PowerShell",
+    "script": "automation/detect_encoded_powershell.py",
+    "alert_file": "detections/powershell_encoded_command_alerts.jsonl",
+    "status": "passed",
+    "alerts": 1,
+    "stdout": "Processed log file: sample-logs/windows_process_events.jsonl\nAlerts generated: 1\nAlert output: detections/powershell_encoded_command_alerts.jsonl",
+    "stderr": ""
+  },
+  {
+    "name": "SSH Brute Force",
+    "script": "automation/detect_ssh_brute_force.py",
+    "alert_file": "detections/ssh_brute_force_alerts.txt",
+    "status": "passed",
+    "alerts": 1,
+    "stdout": "Processed log file: sample-logs/linux_auth.log\nBrute-force alerts generated: 1\nAlert output: detections/ssh_brute_force_alerts.txt\nALERT: Possible SSH brute force from 203.0.113.50 with 5 failed login attempts | MITRE ATT&CK: T1110.001 | Severity: Medium",
+    "stderr": ""
+  },
+  {
+    "name": "Scheduled Task Persistence",
+    "script": "automation/detect_scheduled_task.py",
+    "alert_file": "detections/scheduled_task_alerts.jsonl",
+    "status": "passed",
+    "alerts": 1,
+    "stdout": "Processed log file: sample-logs/windows_scheduled_task_events.jsonl\nScheduled-task alerts generated: 1\nAlert output: detections/scheduled_task_alerts.jsonl",
+    "stderr": ""
+  },
+  {
+    "name": "Privileged Account Correlation",
+    "script": "automation/detect_privileged_account.py",
+    "alert_file": "detections/privileged_account_alerts.jsonl",
+    "status": "passed",
+    "alerts": 1,
+    "stdout": "Processed events: 4\nPrivileged-account alerts generated: 1\nAlert output: detections/privileged_account_alerts.jsonl\nALERT: Account backupadmin was created and added to Administrators within 120 seconds",
+    "stderr": ""
+  },
+  {
+    "name": "Defender Exclusion Tampering",
+    "script": "automation/detect_defender_exclusion.py",
+    "alert_file": "detections/defender_exclusion_alerts.jsonl",
+    "status": "passed",
+    "alerts": 1,
+    "stdout": "Processed log file: sample-logs/windows_defender_events.jsonl\nDefender exclusion alerts generated: 1\nAlert output: detections/defender_exclusion_alerts.jsonl",
+    "stderr": ""
+  },
+  {
+    "name": "Suspicious LSASS Access",
+    "script": "automation/detect_lsass_access.py",
+    "alert_file": "detections/lsass_access_alerts.jsonl",
+    "status": "passed",
+    "alerts": 1,
+    "stdout": "Processed log file: sample-logs/windows_lsass_access_events.jsonl\nLSASS access alerts generated: 1\nAlert output: detections/lsass_access_alerts.jsonl\nALERT: C:\\Users\\Akul\\Downloads\\diagnostic.exe accessed C:\\Windows\\System32\\lsass.exe with 0x1010",
+    "stderr": ""
+  },
+  {
+    "name": "Remote Service Execution",
+    "script": "automation/detect_remote_service_execution.py",
+    "alert_file": "detections/remote_service_execution_alerts.jsonl",
+    "status": "passed",
+    "alerts": 1,
+    "stdout": "Processed log file: sample-logs/windows_remote_service_events.jsonl\nRemote-service alerts generated: 1\nAlert output: detections/remote_service_execution_alerts.jsonl\nALERT: Service PSEXESVC created on LAB-SERVER01 from LAB-WORKSTATION01",
+    "stderr": ""
+  },
+  {
+    "name": "Certutil Download",
+    "script": "automation/detect_certutil_download.py",
+    "alert_file": "detections/certutil_download_alerts.jsonl",
+    "status": "passed",
+    "alerts": 1,
+    "stdout": "Processed log file: sample-logs/windows_certutil_events.jsonl\nCertutil alerts generated: 1\nAlert output: detections/certutil_download_alerts.jsonl",
+    "stderr": ""
+  }
+]
