@@ -5,6 +5,7 @@ from typing import Any
 from openai import OpenAI
 
 from ai.prompt_builder import build_analysis_prompt
+from ai.attack_enrichment import enrich_attack_techniques
 
 
 MODEL = os.getenv("OPENAI_MODEL", "gpt-5-mini")
@@ -90,4 +91,16 @@ def analyze_alert(
             "LLM returned no structured analysis."
         )
 
-    return json.loads(response.output_text)
+    analysis = json.loads(response.output_text)
+
+    returned_ids = [
+        technique.get("technique_id", "")
+        for technique in analysis.get("attack_techniques", [])
+        if technique.get("technique_id")
+    ]
+
+    validation = enrich_attack_techniques(returned_ids)
+
+    analysis["attack_validation"] = validation
+
+    return analysis

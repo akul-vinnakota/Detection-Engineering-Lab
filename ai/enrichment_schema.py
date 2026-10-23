@@ -1,6 +1,8 @@
 from dataclasses import asdict, dataclass
 from typing import Any
 
+from ai.attack_enrichment import enrich_attack_techniques
+
 
 @dataclass
 class EnrichmentInput:
@@ -53,4 +55,10 @@ def normalize_alert(alert: dict[str, Any]) -> dict[str, Any]:
         raw_event=event,
     )
 
-    return asdict(normalized)
+    result = asdict(normalized)
+
+    result["attack_context"] = enrich_attack_techniques(
+        mitre
+    )
+
+    return result

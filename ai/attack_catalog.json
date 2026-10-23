@@ -1,0 +1,65 @@
+{
+  "T1059.001": {
+    "name": "PowerShell",
+    "tactics": [
+      "Execution"
+    ]
+  },
+  "T1110.001": {
+    "name": "Password Guessing",
+    "tactics": [
+      "Credential Access"
+    ]
+  },
+  "T1053.005": {
+    "name": "Scheduled Task",
+    "tactics": [
+      "Execution",
+      "Persistence",
+      "Privilege Escalation"
+    ]
+  },
+  "T1136.001": {
+    "name": "Local Account",
+    "tactics": [
+      "Persistence"
+    ]
+  },
+  "T1098.007": {
+    "name": "Additional Local or Domain Groups",
+    "tactics": [
+      "Persistence",
+      "Privilege Escalation"
+    ]
+  },
+  "T1685": {
+    "name": "Disable or Modify Tools",
+    "tactics": [
+      "Defense Impairment"
+    ]
+  },
+  "T1003.001": {
+    "name": "LSASS Memory",
+    "tactics": [
+      "Credential Access"
+    ]
+  },
+  "T1021.002": {
+    "name": "SMB/Windows Admin Shares",
+    "tactics": [
+      "Lateral Movement"
+    ]
+  },
+  "T1569.002": {
+    "name": "Service Execution",
+    "tactics": [
+      "Execution"
+    ]
+  },
+  "T1105": {
+    "name": "Ingress Tool Transfer",
+    "tactics": [
+      "Command and Control"
+    ]
+  }
+}
