@@ -1,0 +1,21 @@
+{
+  "severity": "low",
+  "confidence": 0.94,
+  "attack_techniques": [
+    {
+      "technique_id": "T1059.001",
+      "technique_name": "Command and Scripting Interpreter: PowerShell"
+    }
+  ],
+  "analysis_summary": "PowerShell was launched with an encoded command. Decoding the provided value yields `Write-Host 'Test'`, which is a benign-looking test message. The evidence confirms PowerShell execution but does not establish malicious intent or show what command launched the parent cmd.exe.",
+  "potential_false_positives": [
+    "An administrator, user, or test script may have used an encoded PowerShell command for benign testing or automation.",
+    "The command is encoded, but its decoded content is only a test message; encoding alone does not establish malicious activity."
+  ],
+  "recommended_actions": [
+    "Review the full command line and surrounding process events for the parent cmd.exe, if available.",
+    "Check nearby endpoint events for additional PowerShell commands or related activity.",
+    "Confirm whether user Akul or an authorized test process was performing this action at the recorded time.",
+    "Avoid treating this event as malicious based on the encoded-command flag alone; escalate only if surrounding evidence provides additional context."
+  ]
+}

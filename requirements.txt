@@ -1,2 +1,3 @@
+openai==3.37.0
 pytest==9.1.1
 sigma-cli==3.1.0
