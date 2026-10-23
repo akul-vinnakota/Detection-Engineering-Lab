@@ -1,7 +1,16 @@
+import argparse
 import json
 import subprocess
 import sys
 from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from ai.enrichment_schema import normalize_alert
+from ai.llm_client import analyze_alert
 
 REPORT_JSON = Path("detections/detection_summary.json")
 REPORT_MD = Path("detections/detection_summary.md")
@@ -86,6 +95,70 @@ def run_detection(detection: dict) -> dict:
     }
 
 
+
+def load_alerts(detection: dict) -> list[dict]:
+    path = Path(detection["alert_file"])
+
+    if not path.exists():
+        return []
+
+    alerts = []
+
+    if path.suffix == ".jsonl":
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                alerts.append(json.loads(line))
+
+    else:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                alerts.append(
+                    {
+                        "rule": detection["name"],
+                        "severity": "medium",
+                        "mitre_attack": [],
+                        "event": {
+                            "message": line,
+                        },
+                    }
+                )
+
+    return alerts
+
+
+def run_ai_triage(
+    results: list[dict],
+    limit: int | None = None,
+) -> list[dict]:
+    analyses = []
+
+    for result in results:
+        if result["status"] != "passed":
+            continue
+
+        detection = next(
+            item
+            for item in DETECTIONS
+            if item["name"] == result["name"]
+        )
+
+        for alert in load_alerts(detection):
+            normalized = normalize_alert(alert)
+            analysis = analyze_alert(normalized)
+
+            analyses.append(
+                {
+                    "detection": result["name"],
+                    "normalized_alert": normalized,
+                    "ai_analysis": analysis,
+                }
+            )
+
+            if limit is not None and len(analyses) >= limit:
+                return analyses
+
+    return analyses
+
 def build_markdown(results: list[dict]) -> str:
     total_alerts = sum(result["alerts"] for result in results)
     passed = sum(result["status"] == "passed" for result in results)
@@ -111,6 +184,20 @@ def build_markdown(results: list[dict]) -> str:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--ai",
+        action="store_true",
+        help="Run AI-assisted triage on generated alerts.",
+    )
+    parser.add_argument(
+        "--ai-limit",
+        type=int,
+        default=None,
+        help="Maximum number of alerts to send for AI triage.",
+    )
+    args = parser.parse_args()
+
     results = []
 
     print("=== Detection Engineering Lab ===")
@@ -142,6 +229,22 @@ def main() -> None:
     print(f"Total alerts generated: {total_alerts}")
     print(f"JSON report: {REPORT_JSON}")
     print(f"Markdown report: {REPORT_MD}")
+
+    if args.ai:
+        print("\n=== AI-Assisted Triage ===")
+
+        analyses = run_ai_triage(results, limit=args.ai_limit)
+
+        ai_report = Path("detections/ai_triage_summary.json")
+        ai_report.write_text(
+            json.dumps(analyses, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+        print(f"Alerts analyzed by AI: {len(analyses)}")
+        print(f"AI report: {ai_report}")
+    else:
+        print("\nAI triage skipped. Use --ai to enable it.")
 
 
 if __name__ == "__main__":
